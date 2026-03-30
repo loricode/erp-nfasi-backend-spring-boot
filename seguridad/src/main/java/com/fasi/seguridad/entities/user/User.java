@@ -1,0 +1,73 @@
+package com.fasi.seguridad.entities.user;
+
+import java.util.UUID;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
+
+@Table("users")
+public class User {
+
+	    @Id
+	    private UUID id;
+
+	    private String email;
+	    
+	    public UUID getId() {
+			return id;
+		}
+
+		public void setId(UUID id) {
+			this.id = id;
+		}
+
+		public String getEmail() {
+			return email;
+		}
+
+		public void setEmail(String email) {
+			this.email = email;
+		}
+
+		public String getPassword() {
+			return password;
+		}
+
+		public void setPassword(String password) {
+			this.password = password;
+		}
+
+		public String getFullName() {
+			return fullName;
+		}
+
+		public void setFullName(String fullName) {
+			this.fullName = fullName;
+		}
+
+		public String getIdentification() {
+			return identification;
+		}
+
+		public void setIdentification(String identification) {
+			this.identification = identification;
+		}
+
+		public String getRole() {
+			return role;
+		}
+
+		public void setRole(String role) {
+			this.role = role;
+		}
+
+		private String password;
+
+	    @Column("full_name")
+	    private String fullName;
+
+	    private String identification;
+
+	    private String role;
+}
