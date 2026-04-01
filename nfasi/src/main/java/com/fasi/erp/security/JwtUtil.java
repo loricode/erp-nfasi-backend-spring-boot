@@ -55,4 +55,14 @@ public class JwtUtil {
                 .parseClaimsJws(token)
                 .getBody();
     }
+    
+    public boolean isTokenValid(String token) {
+        try {
+            validate(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
 }

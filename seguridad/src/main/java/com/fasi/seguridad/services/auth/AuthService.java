@@ -1,6 +1,8 @@
 package com.fasi.seguridad.services.auth;
 
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import com.fasi.erp.security.JwtUtil;
+import com.fasi.seguridad.dtos.user.UserModuleDTO;
 import com.fasi.seguridad.repositories.user.UserCustomRepository;
 import com.fasi.seguridad.repositories.user.UserRepository;
 
@@ -40,14 +43,47 @@ public class AuthService {
             .flatMap(user -> {
                 String token = jwtUtil.generateToken(user.getEmail());
 
-                return userCustomRepository.getUserModules(user.getId())
-                        .collectList()
-                        .map(modules -> Map.of(
-                                "token", token,
-                                "email", user.getEmail(),
-                                "modules", modules
-                        ));
+                return Mono.just(Map.of(
+                        "token", token,
+                        "email", user.getEmail(),
+                        "userId", user.getId()
+                ));
             });
     }
+    
+    public Mono<List<UserModuleDTO>> getModules(UUID userId) {
+        return userCustomRepository
+                .getUserModules(userId)
+                .collectList();           
+    }
+    
+    
+    public Mono<Map<String, Object>> validateToken(String header) {
+
+        if (header == null || !header.startsWith("Bearer ")) {
+            return Mono.just(Map.of(
+                    "valid", false,
+                    "message", "Token no proporcionado"
+            ));
+        }
+
+        String token = header.substring(7);
+
+        boolean isValid = jwtUtil.isTokenValid(token);
+
+        if (!isValid) {
+            return Mono.just(Map.of(
+                    "valid", false,
+                    "message", "Token inválido o expirado"
+            ));
+        }
+        
+        return Mono.just(Map.of(
+                "valid", true,
+                "message", "Token valido"
+        ));
+        
+    }
+    
     
 }

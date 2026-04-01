@@ -1,5 +1,7 @@
 package com.fasi.core.config;
 
+import java.util.List;
+
 import org.springframework.context.annotation.*;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -22,22 +24,25 @@ public class SecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http
                 .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configurationSource(exchange -> {
+                    var corsConfig = new org.springframework.web.cors.CorsConfiguration();
+                    corsConfig.setAllowedOrigins(List.of("http://localhost:4200"));
+                    corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                    corsConfig.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+                    corsConfig.setAllowCredentials(true);
+                    return corsConfig;
+                }))
                 .authorizeExchange(exchanges -> exchanges
+                		    .pathMatchers(
+                		    		  "/v3/api-docs/**",
+            		              "/swagger-ui/**",
+            		              "/swagger-ui.html",
+            		              "/webjars/**"
+                		    		).permitAll()
                         .anyExchange().authenticated()
                 )
                 .addFilterAt(jwtAuthFilter, SecurityWebFiltersOrder.AUTHENTICATION)
                 .build();
     }
-    
-    
-	/*@Bean
-	    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-		 http
-         .csrf(csrf -> csrf.disable())
-	            .authorizeExchange(exchanges -> exchanges
-	                .anyExchange().permitAll()
-	            );
-	        return http.build();
-	}*/
     
 }
