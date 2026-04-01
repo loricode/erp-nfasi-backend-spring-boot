@@ -1,14 +1,13 @@
-package com.fasi.seguridad.config;
+package com.fasi.core.config;
 
 import org.springframework.context.annotation.*;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
-import com.fasi.seguridad.utils.jwt.JwtAuthFilter;
+import com.fasi.core.utils.jwt.JwtAuthFilter;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 public class SecurityConfig {
@@ -18,13 +17,12 @@ public class SecurityConfig {
     public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
       this.jwtAuthFilter = jwtAuthFilter;
     }
-	
+    
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeExchange(exchanges -> exchanges
-                        .pathMatchers("/api/security/auth/**").permitAll()
                         .anyExchange().authenticated()
                 )
                 .addFilterAt(jwtAuthFilter, SecurityWebFiltersOrder.AUTHENTICATION)
@@ -32,10 +30,14 @@ public class SecurityConfig {
     }
     
     
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	/*@Bean
+	    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+		 http
+         .csrf(csrf -> csrf.disable())
+	            .authorizeExchange(exchanges -> exchanges
+	                .anyExchange().permitAll()
+	            );
+	        return http.build();
+	}*/
     
 }

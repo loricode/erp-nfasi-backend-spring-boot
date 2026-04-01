@@ -12,6 +12,7 @@
     <modules>
         <module>seguridad</module>
         <module>nfasi</module>
+        <module>core</module>
     </modules>
 
     <properties>

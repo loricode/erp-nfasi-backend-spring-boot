@@ -31,10 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-seguridad/target/
-nfasi/target/
-
-eguridad/.setting/
-nfasi/.setting/
-core/.setting/

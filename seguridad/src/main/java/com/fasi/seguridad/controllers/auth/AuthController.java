@@ -16,7 +16,7 @@ import com.fasi.seguridad.services.auth.AuthService;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/security/auth")
 @CrossOrigin("*")
 public class AuthController {
 
