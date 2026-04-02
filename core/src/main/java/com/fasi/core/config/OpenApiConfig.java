@@ -16,7 +16,7 @@ public class OpenApiConfig {
 	public OpenAPI customOpenAPI() {
 	    return new OpenAPI()
 	    		.info(new Info()
-                        .title("Mi API")
+                        .title("API CORE")
                         .version("1.0")
                         .description("Documentación con Swagger"))
 	        .addSecurityItem(new SecurityRequirement().addList("bearerAuth")) // 🔥 CLAVE
