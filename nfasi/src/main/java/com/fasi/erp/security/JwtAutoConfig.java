@@ -1,7 +1,5 @@
 package com.fasi.erp.security;
 
-
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +13,8 @@ public class JwtAutoConfig {
    private JwtProperties props;
 
    @Bean
-   public JwtUtil jwtUtil() {
-       // Ahora props ya está completamente inicializado
+   JwtUtil jwtUtil() {
+       
        if (props.getSecret() == null || props.getSecret().isBlank()) {
            throw new IllegalStateException("jwt.secret must be defined in application.properties");
        }
