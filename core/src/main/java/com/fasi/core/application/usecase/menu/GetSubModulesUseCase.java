@@ -20,7 +20,7 @@ public class GetSubModulesUseCase {
         this.menuCustomRepository = menuCustomRepository;
     }
 
-    public Mono<List<MenuDTO>> getSubModules(UUID moduleId){
+    public Mono<List<MenuDTO>> execute(UUID moduleId){
     	
     	if (moduleId == null) {
             return Mono.error(new ApiException(

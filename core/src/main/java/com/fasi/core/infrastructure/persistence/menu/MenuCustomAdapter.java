@@ -35,7 +35,10 @@ public class MenuCustomAdapter implements MenuCustomPort {
                         row.get("submodule_id", UUID.class),
                         row.get("submodule_name", String.class),
                         row.get("option_id", UUID.class),
-                        row.get("option_name", String.class)))
+                        row.get("option_name", String.class),
+                        row.get("option_icon", String.class),
+                        row.get("option_route", String.class)
+                    ))
                 .all()
                 .collectList()
                 .map(this::groupMenu);
@@ -59,7 +62,12 @@ public class MenuCustomAdapter implements MenuCustomPort {
         if (row.getOptionId() != null) {
             map.get(row.getSubmoduleId())
                     .getOptions()
-                    .add(new OptionDTO(row.getOptionId(), row.getOptionName()));
+                    .add(new OptionDTO(
+                        row.getOptionId(),
+                        row.getOptionName(),
+                        row.getIcon(), 
+                        row.getRoute()
+                    ));
         }
     }
 

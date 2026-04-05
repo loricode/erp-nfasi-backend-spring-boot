@@ -33,7 +33,7 @@ public class UserController {
     }
     
     @GetMapping("/module/{userId}")
-    public Mono<?> getUserModules(@PathVariable UUID userId) {
+    public Mono<?> getUserModules(@PathVariable("userId") UUID userId) {
         return getModulesUseCase.execute(userId);
     }
     

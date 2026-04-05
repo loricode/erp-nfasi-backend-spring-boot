@@ -8,12 +8,39 @@ public class MenuFlatDTO {
     private String submoduleName;
     private UUID optionId;
     private String optionName;
+    private String icon;
+    private String route;
 
-    public MenuFlatDTO(UUID submoduleId, String submoduleName, UUID optionId, String optionName) {
+    public MenuFlatDTO(
+        UUID submoduleId,
+        String submoduleName, 
+        UUID optionId, 
+        String optionName, 
+        String icon, 
+        String route
+    ) {
         this.submoduleId = submoduleId;
         this.submoduleName = submoduleName;
         this.optionId = optionId;
         this.optionName = optionName;
+        this.icon = icon;
+        this.route = route;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon){
+        this.icon = icon;
+    }
+
+     public String getRoute() {
+        return route;
+    }
+
+    public void setRoute(String route){
+        this.route = route;
     }
 
     public UUID getSubmoduleId() {

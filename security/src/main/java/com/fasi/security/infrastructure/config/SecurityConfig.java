@@ -34,7 +34,7 @@ public class SecurityConfig {
                     return corsConfig;
                 }))
                 .authorizeExchange(exchanges -> exchanges
-                        .pathMatchers("/api/security/auth/**",
+                        .pathMatchers(
                         		 "/v3/api-docs/**",
            		              "/swagger-ui/**",
            		              "/swagger-ui.html",

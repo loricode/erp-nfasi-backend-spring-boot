@@ -22,7 +22,7 @@ public class MenuController {
 
     @PostMapping("/menu/submodules")
     public Mono<?> submodules(@RequestBody Menu menu) {
-        return this.subMenuUseCase.getSubModules(menu.moduleId());
+        return this.subMenuUseCase.execute(menu.moduleId());
     }
     
 }
